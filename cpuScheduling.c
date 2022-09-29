@@ -62,17 +62,20 @@ int main(){
 void fcfs(int n){
 	int i,com;
 	float totalTurn=0,totalWait=0,avgT,avgW;
-	printf("\nGatt Chart\n");
-	for(i=0;i<n;i++){
-		printf("%d  ",p[i].no);
-	}
-	printf("\n");
+	
+	
 	com=0;
 	for(i=0;i<n;i++){
 		com=com+p[i].burst;
 		p[i].turnAround=com;
 		p[i].waiting=com-p[i].burst;
 	}
+	printf("\nGatt Chart\n");
+	printf("0");
+	for(i=0;i<n;i++){
+		printf("[%d]  %d  ",p[i].no,p[i].turnAround);
+	}
+	printf("\n");
 	print(n);
 	for(i=0;i<n;i++){
 		totalTurn+=p[i].turnAround;
@@ -96,18 +99,18 @@ void sjf(int n){
 			}
 		}
 	}
-	
-	printf("\nGatt Chart\n");
-	for(i=0;i<n;i++){
-		printf("%d  ",p[i].no);
-	}
-	printf("\n");
 	com=0;
 	for(i=0;i<n;i++){
 		com=com+p[i].burst;
 		p[i].turnAround=com;
 		p[i].waiting=com-p[i].burst;
 	}
+	printf("\nGatt Chart\n");
+	printf("0");
+	for(i=0;i<n;i++){
+		printf("[%d]  %d  ",p[i].no,p[i].turnAround);
+	}
+	printf("\n");
 	print(n);
 	for(i=0;i<n;i++){
 		totalTurn+=p[i].turnAround;
@@ -135,17 +138,18 @@ void priority(int n){
 			}
 		}
 	}
-	printf("\nGatt Chart\n");
-	for(i=0;i<n;i++){
-		printf("%d  ",p[i].no);
-	}
-	printf("\n");
 	com=0;
 	for(i=0;i<n;i++){
 		com=com+p[i].burst;
 		p[i].turnAround=com;
 		p[i].waiting=com-p[i].burst;
 	}
+	printf("\nGatt Chart\n");
+	printf("0");
+	for(i=0;i<n;i++){
+		printf("p[%d]  %d  ",p[i].no,p[i].turnAround);
+	}
+	printf("\n");
 	print(n);
 	for(i=0;i<n;i++){
 		totalTurn+=p[i].turnAround;
@@ -165,11 +169,10 @@ void roundrobin(int n){
 	for(i=0;i<n;i++){
 		totalBurst+=p[i].burst;
 	}
-	printf("Gatt chart :- \n");
+	printf("Gatt chart :- \n 0   ");
 	while(com<totalBurst){
 		for(i=0;i<n;i++){
 			if(p[i].burstCopy>0){
-			printf("p[%d]  ",i);
 				if(p[i].burstCopy<=quanta){
 					com+=p[i].burstCopy;
 					p[i].burstCopy=0;
@@ -180,6 +183,7 @@ void roundrobin(int n){
 					com+=quanta;
 					p[i].burstCopy-=quanta;
 				}
+				printf("p[%d]  %d   ",i,com);
 			}
 		}
 	}
