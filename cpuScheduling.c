@@ -71,7 +71,7 @@ void fcfs(int n){
 		p[i].waiting=com-p[i].burst;
 	}
 	printf("\nGatt Chart\n");
-	printf("0");
+	printf("0  ");
 	for(i=0;i<n;i++){
 		printf("[%d]  %d  ",p[i].no,p[i].turnAround);
 	}
@@ -106,7 +106,7 @@ void sjf(int n){
 		p[i].waiting=com-p[i].burst;
 	}
 	printf("\nGatt Chart\n");
-	printf("0");
+	printf("0  ");
 	for(i=0;i<n;i++){
 		printf("[%d]  %d  ",p[i].no,p[i].turnAround);
 	}
