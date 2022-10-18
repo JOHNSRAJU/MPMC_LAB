@@ -56,8 +56,6 @@ void fifo(int p[20],int n,int f){
 			pageFault++;
 			printf("%d\t",p[i]);
 		}
-		
-		
 		for(j=0;j<f;j++){
             		if(frames[j]!=-1){
                 		printf("%d   ",frames[j]);
@@ -67,7 +65,6 @@ void fifo(int p[20],int n,int f){
 	}
 	printf("No. of Page Fault :- %d",pageFault);
 }
-
 void lru(int p[20],int n,int f){
 	int i,j,min,pageFault=0,frames[10],flag,point,order[10];
 	for(i=0;i<f;i++){
@@ -86,7 +83,7 @@ void lru(int p[20],int n,int f){
 			}
 		}
 		if(flag==0){
-            min=0;
+            		min=0;
 			for(j=0;j<f;j++){
 				if(order[j]<order[min]){
 					min=j;
