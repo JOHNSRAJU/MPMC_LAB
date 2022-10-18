@@ -59,9 +59,9 @@ void fifo(int p[20],int n,int f){
 		
 		
 		for(j=0;j<f;j++){
-            if(frames[j]!=-1){
-                printf("%d   ",frames[j]);
-            }
+            		if(frames[j]!=-1){
+                		printf("%d   ",frames[j]);
+            		}
 		}
 		printf("\n");
 	}
@@ -95,12 +95,12 @@ void lru(int p[20],int n,int f){
 			frames[min]=p[i];
 			order[min]=i;
 			printf("%d\t",p[i]);
-            pageFault++;
+            		pageFault++;
 		}
 		for(j=0;j<f;j++){
-            if(frames[j]!=-1){
-                printf("%d   ",frames[j]);
-            }
+            		if(frames[j]!=-1){
+                		printf("%d   ",frames[j]);
+            		}
 		}
 		printf("\n");
 	}
@@ -140,9 +140,9 @@ void lfu(int p[20],int n,int f){
 			printf("%d\t",p[i]);
 		}
 		for(j=0;j<f;j++){
-            if(frames[j]!=-1){
-                printf("%d   ",frames[j]);
-            }
+            		if(frames[j]!=-1){
+                		printf("%d   ",frames[j]);
+            		}
 		}
 		printf("\n");
 	}
