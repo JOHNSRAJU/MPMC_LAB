@@ -73,7 +73,7 @@ void fcfs(int n){
 	printf("\nGatt Chart\n");
 	printf("0  ");
 	for(i=0;i<n;i++){
-		printf("[%d]  %d  ",p[i].no,p[i].turnAround);
+		printf("P[%d]  %d  ",p[i].no,p[i].turnAround);
 	}
 	printf("\n");
 	print(n);
@@ -108,7 +108,7 @@ void sjf(int n){
 	printf("\nGatt Chart\n");
 	printf("0  ");
 	for(i=0;i<n;i++){
-		printf("[%d]  %d  ",p[i].no,p[i].turnAround);
+		printf("P[%d]  %d  ",p[i].no,p[i].turnAround);
 	}
 	printf("\n");
 	print(n);
@@ -147,7 +147,7 @@ void priority(int n){
 	printf("\nGatt Chart\n");
 	printf("0");
 	for(i=0;i<n;i++){
-		printf("p[%d]  %d  ",p[i].no,p[i].turnAround);
+		printf("P[%d]  %d  ",p[i].no,p[i].turnAround);
 	}
 	printf("\n");
 	print(n);
@@ -183,7 +183,7 @@ void roundrobin(int n){
 					com+=quanta;
 					p[i].burstCopy-=quanta;
 				}
-				printf("p[%d]  %d   ",i,com);
+				printf("P[%d]  %d   ",i,com);
 			}
 		}
 	}
