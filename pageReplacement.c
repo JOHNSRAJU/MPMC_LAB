@@ -80,7 +80,7 @@ void lru(int p[20],int n,int f){
 		for(j=0;j<f;j++){
 			if(frames[j]==p[i]){
 				flag=1;
-                order[j]=i;
+                		order[j]=i;
 				printf("%d *\t",p[i]);
 				break;
 			}
