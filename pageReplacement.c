@@ -72,7 +72,7 @@ void lru(int p[20],int n,int f){
 	int i,j,min,pageFault=0,frames[10],flag,point,order[10];
 	for(i=0;i<f;i++){
 		frames[i]=-1;
-        order[i]=-1;
+        	order[i]=-1;
 	}
 	printf("\nREF\t  Frames\n");
 	for(i=0;i<n;i++){
@@ -110,7 +110,7 @@ void lfu(int p[20],int n,int f){
 	int i,j,k,pageFault=0,frames[10],flag,point=0,freq[10],min;
 	for(i=0;i<f;i++){
 		frames[i]=-1;
-        freq[i]=0;
+        	freq[i]=0;
 	}
 	printf("\nREF\t  Frames\n");
 	for(i=0;i<n;i++){
