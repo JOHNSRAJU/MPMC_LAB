@@ -66,23 +66,33 @@ void fcfs(int r,int headCP,int req[20]){
 void scan(int r,int headCP,int sReq[20],int diskS){
 	int i,point,headM0=0,headM1=0;
 	point=headCP;
-		headM0+=(diskS-point)+(diskS-sReq[0]);
-		headM1+=(point+sReq[r-1]);
-		printf("\nTotal head movement in left to right direction:- %d",headM0);
-		printf("\nTotal head movement in right to left direction:- %d",headM1);
+	headM0+=(diskS-point);
+    	if(headCP>sReq[0]){
+        	headM0+=(diskS-sReq[0]);
+    	}
+    	headM1+=point;
+    	if(headCP<sReq[r-1]){
+        	headM1+=sReq[r-1];
+    	}
+	printf("\nTotal head movement in left to right direction:- %d",headM0);
+	printf("\nTotal head movement in right to left direction:- %d",headM1);
 }
 void cscan(int r,int headCP,int sReq[20],int diskS){
 	int i,point,headM0=0,headM1=0;
 	point=0;
-
 	for(i=0;i<r;i++){
 		if(headCP>sReq[i]){
 			point=i;
 		}
 	}
-		headM0+=(diskS-headCP)+(diskS+sReq[point]);
-		headM1+=headCP+diskS+(diskS-sReq[point+1]);
-		printf("\nTotal head movement in left to right direction:- %d",headM0);
-		printf("\nTotal head movement in right to left direction:- %d",headM1);
+	headM0+=(diskS-headCP)+diskS;
+    	if(headCP>sReq[0]){
+        	headM0+=sReq[point];
+    	}
+    	headM1+=headCP+diskS;
+    	if(headCP<sReq[r-1]){
+        	headM1+=(diskS-sReq[point+1]);
+    	}
+	printf("\nTotal head movement in left to right direction:- %d",headM0);
+	printf("\nTotal head movement in right to left direction:- %d",headM1);
 }
-
