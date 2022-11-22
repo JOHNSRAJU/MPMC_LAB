@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-int searchOptab(char opcode[10]){
+int searchOptab(char opcode[10]){  //for searching in optab and returning opcode
     FILE *optab;
     char op[10];
     int value;
@@ -15,7 +15,7 @@ int searchOptab(char opcode[10]){
     fclose(optab);
     return -1;
 }
-int searchSymtab(char label[10]){
+int searchSymtab(char label[10]){  //for searching in symbab and returning its location
     FILE *symtab;
     char sym[10];
     int value;
@@ -32,13 +32,15 @@ int searchSymtab(char label[10]){
 int main(){
     FILE *intermediate,*output,*header,*text,*end,*symtab,*optab;
     char label[10],opcode[10],operand[10],obcode[10],obcodeTe[100]="",obcodeCopy[10];
-    int LOCCTR,symaddr,opaddr,i,sa,leng,lenObCode=0,flag=0,flag2=0;
-    intermediate=fopen("intermediate.txt","r");
+    int LOCCTR,symaddr,opaddr,i,sa,leng,lenObCode=0,flag=0,flag2=0; 
+
+    intermediate=fopen("intermediate.txt","r");       //opening all needed files
     output=fopen("output.txt","w");
     header=fopen("header.txt","w");
     text=fopen("text.txt","w");
     end=fopen("end.txt","w");
-    fscanf(intermediate,"%s%s%s",label,opcode,operand);
+
+    fscanf(intermediate,"%s%s%s",label,opcode,operand);      //for label start
     if(strcmp(opcode,"START")==0){
         fprintf(header,"H^%06s^%06s",label,operand);
         fprintf(text,"T^%06s",operand);
@@ -46,7 +48,7 @@ int main(){
         fprintf(output,"\t%s\t%s\t%s\n",label,opcode,operand);
         sa=atoi(operand);
     }
-    while(strcmp(opcode,"END")!=0){
+    while(strcmp(opcode,"END")!=0){                          
         fscanf(intermediate,"%d%s%s%s",&LOCCTR,label,opcode,operand);
         if(strcmp(label,"**")==0){
             opaddr=searchOptab(opcode);
@@ -60,7 +62,7 @@ int main(){
             }
         }
         else if(strcmp(opcode,"BYTE")==0){
-            if(flag==0){
+            if(flag==0){             //for entering in new line in text file if it is first byte or word opcode
                 fprintf(text,"^%02d%s",lenObCode,obcodeTe);
                 sprintf(obcodeTe,"");
                 lenObCode=0;
@@ -76,7 +78,7 @@ int main(){
             sprintf(obcodeTe,"%s^%s",obcodeTe,obcode);
         }
         else if(strcmp(opcode,"WORD")==0){
-            if(flag==0){
+            if(flag==0){           //for entering in new line in text file if it is first word or byte opcode
                 fprintf(text,"^%02d%s",lenObCode,obcodeTe);
                 sprintf(obcodeTe,"");
                 lenObCode=0;
@@ -91,12 +93,12 @@ int main(){
             sprintf(obcode,"");
         }
         fprintf(output,"%d\t%s\t\t%s\t\t%s\t\t%s\n",LOCCTR,label,opcode,operand,obcode);
-        if(strcmp(obcode,"")!=0){
-            if(flag2==1 && (strcmp(obcodeTe,"")!=0)){
+        if(strcmp(obcode,"")!=0){             //checking is it a valid obcode
+            if(flag2==1 && (strcmp(obcodeTe,"")!=0)){      //for printing new line in text file
                 fprintf(text,"\nT^%06d",LOCCTR);
                 flag2=0;
             }
-            if(lenObCode>17){
+            if(lenObCode>17){                             //for printing new line in text file
                 fprintf(text,"^%02d%s",lenObCode,obcodeTe);
                 sprintf(obcodeTe,"");
                 lenObCode=0;
@@ -104,7 +106,7 @@ int main(){
             }
         }
     }
-    if(lenObCode>0){
+    if(lenObCode>0){              //for printing last line of text file
         fprintf(text,"^%02d%s",lenObCode,obcodeTe);
     }
     leng=LOCCTR-sa;
