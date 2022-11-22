@@ -32,7 +32,7 @@ int searchSymtab(char label[10]){
 int main(){
     FILE *intermediate,*output,*header,*text,*end,*symtab,*optab;
     char label[10],opcode[10],operand[10],obcode[10],obcodeTe[100]="",obcodeCopy[10];
-    int LOCCTR,symaddr,opaddr,i,sa,leng,lenObCode=0,flag;
+    int LOCCTR,symaddr,opaddr,i,sa,leng,lenObCode=0,flag=0,flag2=0;
     intermediate=fopen("intermediate.txt","r");
     output=fopen("output.txt","w");
     header=fopen("header.txt","w");
@@ -48,12 +48,6 @@ int main(){
     }
     while(strcmp(opcode,"END")!=0){
         fscanf(intermediate,"%d%s%s%s",&LOCCTR,label,opcode,operand);
-        if(lenObCode>17){
-            fprintf(text,"^%02d%s\n",lenObCode,obcodeTe);
-            sprintf(obcodeTe,"");
-            lenObCode=0;
-        }
-        flag=0;
         if(strcmp(label,"**")==0){
             opaddr=searchOptab(opcode);
             if(opaddr!=-1){
@@ -66,6 +60,13 @@ int main(){
             }
         }
         else if(strcmp(opcode,"BYTE")==0){
+            if(flag==0){
+                fprintf(text,"^%02d%s",lenObCode,obcodeTe);
+                sprintf(obcodeTe,"");
+                lenObCode=0;
+                flag=1;
+                flag2=1;
+            }
             sprintf(obcodeCopy,"");
             for(i=2;i<strlen(operand)-1;i++){
                 sprintf(obcodeCopy,"%s%c",obcodeCopy,operand[i]);
@@ -75,19 +76,33 @@ int main(){
             sprintf(obcodeTe,"%s^%s",obcodeTe,obcode);
         }
         else if(strcmp(opcode,"WORD")==0){
+            if(flag==0){
+                fprintf(text,"^%02d%s",lenObCode,obcodeTe);
+                sprintf(obcodeTe,"");
+                lenObCode=0;
+                flag=1;
+                flag2=1;
+            }
             sprintf(obcode,"%06s",operand);
             lenObCode+=3;
             sprintf(obcodeTe,"%s^%s",obcodeTe,obcode);
         }
         else{
             sprintf(obcode,"");
-            flag=1;
         }
         fprintf(output,"%d\t%s\t\t%s\t\t%s\t\t%s\n",LOCCTR,label,opcode,operand,obcode);
-    }
-    if(lenObCode>0 && flag==0){
-        fprintf(text,"T^%06d",LOCCTR);
-        printf("&d",flag);
+        if(strcmp(obcode,"")!=0){
+            if(flag2==1 && (strcmp(obcodeTe,"")!=0)){
+                fprintf(text,"\nT^%06d",LOCCTR);
+                flag2=0;
+            }
+            if(lenObCode>17){
+                fprintf(text,"^%02d%s",lenObCode,obcodeTe);
+                sprintf(obcodeTe,"");
+                lenObCode=0;
+                flag2=1;
+            }
+        }
     }
     if(lenObCode>0){
         fprintf(text,"^%02d%s",lenObCode,obcodeTe);
